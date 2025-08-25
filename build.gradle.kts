@@ -23,11 +23,12 @@ dependencies {
     implementation("io.javalin:javalin:6.6.0")
     implementation("io.javalin:javalin-bundle:6.6.0")
     implementation("io.javalin:javalin-rendering:6.6.0")
-
     testImplementation("org.assertj:assertj-core:3.27.3")
     testImplementation(platform("org.junit:junit-bom:5.12.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    compileOnly("org.projectlombok:lombok:1.18.30")
+    annotationProcessor("org.projectlombok:lombok:1.18.30")
 }
 
 tasks.test {
