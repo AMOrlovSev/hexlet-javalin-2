@@ -1,11 +1,12 @@
 package org.example.hexlet.dto.users;
 
+import org.example.hexlet.model.User;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.example.hexlet.model.User;
 
 @AllArgsConstructor
 @Getter
 public class UserPage {
-    private User user;
+    public User user;
 }
