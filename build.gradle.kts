@@ -3,7 +3,7 @@ plugins {
 }
 
 application {
-    mainClass = "org.example.hexlet.App"
+    mainClass = "org.example.hexlet.HelloWorld"
 }
 
 group = "org.example"
