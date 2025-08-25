@@ -9,6 +9,8 @@ import org.example.hexlet.dto.courses.CoursePage;
 import org.example.hexlet.dto.courses.CoursesPage;
 import org.example.hexlet.dto.users.UserPage;
 import org.example.hexlet.dto.users.UsersPage;
+import org.example.hexlet.model.Course;
+import org.example.hexlet.model.User;
 import org.example.hexlet.repository.CourseRepository;
 import org.example.hexlet.repository.UserRepository;
 
@@ -64,6 +66,19 @@ public class HelloWorld {
             ctx.contentType("text/html; charset=utf-8");
         });
 
+        app.get("/courses/build", ctx -> {
+            ctx.render("courses/build.jte");
+        });
+
+        app.post("/courses", ctx -> {
+            var name = ctx.formParam("name").trim();
+            var description = ctx.formParam("description").trim();
+
+            var course = new Course(name, description);
+            CourseRepository.save(course);
+            ctx.redirect("/courses");
+        });
+
         app.get("/courses/{id}", ctx -> {
             var id = ctx.pathParamAsClass("id", Long.class).get();
             var course = CourseRepository.find(id)
@@ -83,6 +98,21 @@ public class HelloWorld {
             }
             var page = new CoursesPage(courses, term);
             ctx.render("courses/index.jte", model("page", page));
+        });
+
+        app.get("/users/build", ctx -> {
+            ctx.render("users/build.jte");
+        });
+
+        app.post("/users", ctx -> {
+            var name = ctx.formParam("name").trim();
+            var email = ctx.formParam("email").trim().toLowerCase();
+            var password = ctx.formParam("password");
+            var passwordConfirmation = ctx.formParam("passwordConfirmation");
+
+            var user = new User(name, email, password);
+            UserRepository.save(user);
+            ctx.redirect("/users");
         });
 
         app.get("/users/{id}", ctx -> {

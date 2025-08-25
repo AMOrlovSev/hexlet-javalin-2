@@ -18,5 +18,8 @@ content = @`
             </div>
         @endfor
     @endif
+    <div>
+        <a href="/courses/build">Добавить курс</a>
+    </div>
 `
 )

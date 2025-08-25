@@ -5,7 +5,7 @@
 content = @`
     <div class="mx-auto p-4 py-md-5">
         <main>
-            <h2>${page.getUser().getName()} ${page.getUser().getEmail()}</h2>
+            <h2>${page.getUser().getName()}</h2>
             <div>${page.getUser().getEmail()}</div>
         </main>
     </div>

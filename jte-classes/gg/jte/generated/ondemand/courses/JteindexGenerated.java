@@ -3,7 +3,7 @@ import org.example.hexlet.dto.courses.CoursesPage;
 @SuppressWarnings("unchecked")
 public final class JteindexGenerated {
 	public static final String JTE_NAME = "courses/index.jte";
-	public static final int[] JTE_LINE_INFO = {0,0,1,1,1,1,3,3,5,5,8,8,8,8,8,8,8,8,8,11,11,13,13,14,14,16,16,16,16,16,16,16,17,17,17,19,19,20,20,21,21,21,21,21,1,1,1,1};
+	public static final int[] JTE_LINE_INFO = {0,0,1,1,1,1,3,3,5,5,8,8,8,8,8,8,8,8,8,11,11,13,13,14,14,16,16,16,16,16,16,16,17,17,17,19,19,20,20,24,24,24,24,24,1,1,1,1};
 	public static void render(gg.jte.html.HtmlTemplateOutput jteOutput, gg.jte.html.HtmlInterceptor jteHtmlInterceptor, CoursesPage page) {
 		jteOutput.writeContent("\r\n");
 		gg.jte.generated.ondemand.layout.JtepageGenerated.render(jteOutput, jteHtmlInterceptor, new gg.jte.html.HtmlContent() {
@@ -37,7 +37,7 @@ public final class JteindexGenerated {
 					}
 					jteOutput.writeContent("\r\n    ");
 				}
-				jteOutput.writeContent("\r\n");
+				jteOutput.writeContent("\r\n    <div>\r\n        <a href=\"/courses/build\">Добавить курс</a>\r\n    </div>\r\n");
 			}
 		}, null);
 	}

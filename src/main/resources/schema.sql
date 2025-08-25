@@ -6,3 +6,8 @@ CREATE TABLE courses (
     description TEXT,
     created_at TIMESTAMP
 );
+
+INSERT INTO courses (name, description) VALUES
+('name1', 'description1'),
+('name2', 'description2'),
+('name3', 'description3');

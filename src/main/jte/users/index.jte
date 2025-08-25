@@ -24,6 +24,9 @@ content = @`
             </table>
         </main>
     </div>
+    <div>
+        <a href="/users/build">Добавить пользователя</a>
+    </div>
 `,
 footer = @`
     <p>Thanks for visiting, come again soon!</p>
