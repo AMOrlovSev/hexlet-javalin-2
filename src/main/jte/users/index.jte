@@ -1,3 +1,4 @@
+@import org.example.hexlet.NamedRoutes
 @import org.example.hexlet.dto.users.UsersPage
 @param UsersPage page
 
@@ -6,7 +7,7 @@ content = @`
     <div class="mx-auto p-4 py-md-5">
         <main>
             <h1>Пользователи</h1>
-            <form action="/users" method="get">
+            <form action="${NamedRoutes.usersPath()}" method="get">
                 <input type="search" name="term" value="${page.getTerm()}" />
                 <input type="submit" value="Search" />
             </form>
@@ -17,7 +18,7 @@ content = @`
                             ${user.getId()}
                         </td>
                         <td>
-                            <a href="/users/${user.getId()}">${user.getName()} ${user.getEmail()}</a>
+                            <a href="${NamedRoutes.userPath(user.getId())}">${user.getName()} ${user.getEmail()}</a>
                         </td>
                     </tr>
                 @endfor
@@ -25,7 +26,7 @@ content = @`
         </main>
     </div>
     <div>
-        <a href="/users/build">Добавить пользователя</a>
+        <a href="${NamedRoutes.buildUserPath()}">Добавить пользователя</a>
     </div>
 `,
 footer = @`
