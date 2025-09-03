@@ -11,9 +11,15 @@ public class UserRepository {
     private static List<User> entities = new ArrayList<User>();
 
     public static void save(User user) {
-        user.setId((long) entities.size() + 1);
-        user.setCreatedAt(LocalDateTime.now());
-        entities.add(user);
+        if (user.getId() == null) {
+            // Новый пользователь
+            user.setId((long) entities.size() + 1);
+            user.setCreatedAt(LocalDateTime.now());
+            entities.add(user);
+        } else {
+            // Обновление существующего пользователя
+            update(user);
+        }
     }
 
     public static List<User> search(String term) {
@@ -41,4 +47,21 @@ public class UserRepository {
     public static List<User> getEntities() {
         return entities;
     }
+
+    public static void update(User updatedUser) {
+        for (int i = 0; i < entities.size(); i++) {
+            User user = entities.get(i);
+            if (user.getId().equals(updatedUser.getId())) {
+                // Обновляем поля, но сохраняем ID и createdAt
+                user.setName(updatedUser.getName());
+                user.setEmail(updatedUser.getEmail());
+                user.setPassword(updatedUser.getPassword());
+                // Не обновляем createdAt - оставляем оригинальное значение
+                entities.set(i, user);
+                return;
+            }
+        }
+        throw new RuntimeException("User not found with id: " + updatedUser.getId());
+    }
+
 }
