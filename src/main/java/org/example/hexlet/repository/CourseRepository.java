@@ -30,6 +30,10 @@ public class CourseRepository {
         return maybeCourse;
     }
 
+    public static void delete(Long id) {
+        entities.removeIf(course -> course.getId() == id);
+    }
+
     public static List<Course> getEntities() {
         return entities;
     }

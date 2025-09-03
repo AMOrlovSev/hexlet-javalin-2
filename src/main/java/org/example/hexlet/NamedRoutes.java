@@ -9,6 +9,14 @@ public class NamedRoutes {
         return "/courses/build";
     }
 
+    public static String editCoursePath(Long id) {
+        return editCoursePath(String.valueOf(id));
+    }
+
+    public static String editCoursePath(String id) {
+        return "/courses/" + id + "/edit";
+    }
+
     public static String coursePath(Long id) {
         return coursePath(String.valueOf(id));
     }

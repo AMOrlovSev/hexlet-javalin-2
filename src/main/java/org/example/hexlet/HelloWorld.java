@@ -6,6 +6,7 @@ import io.javalin.Javalin;
 import io.javalin.http.NotFoundResponse;
 import io.javalin.rendering.template.JavalinJte;
 import io.javalin.validation.ValidationException;
+import org.example.hexlet.controller.CoursesController;
 import org.example.hexlet.controller.UsersController;
 import org.example.hexlet.dto.courses.BuildCoursePage;
 import org.example.hexlet.dto.courses.CoursePage;
@@ -74,51 +75,13 @@ public class HelloWorld {
 
 
 
-        app.get(NamedRoutes.buildCoursePath(), ctx -> {
-            var page = new BuildCoursePage();
-            ctx.render("courses/build.jte", model("page", page));
-        });
-
-        app.post(NamedRoutes.coursesPath(), ctx -> {
-            try {
-                var name = ctx.formParamAsClass("name", String.class)
-                        .check(value -> value.trim().length() > 2, "Имя должно быть более 2х символов")
-                        .get();
-                var description = ctx.formParamAsClass("description", String.class)
-                        .check(value -> value.trim().length() > 10, "Описание должно быть более 10 символов")
-                        .get();
-                var course = new Course(name, description);
-                CourseRepository.save(course);
-                ctx.redirect(NamedRoutes.coursesPath());
-            } catch (ValidationException e) {
-                var name = ctx.formParam("name").trim();
-                var description = ctx.formParam("description").trim();
-                var page = new BuildCoursePage(name, description, e.getErrors());
-                ctx.render("courses/build.jte", model("page", page));
-            }
-        });
-
-        app.get(NamedRoutes.coursePath("{id}"), ctx -> {
-            var id = ctx.pathParamAsClass("id", Long.class).get();
-            var course = CourseRepository.find(id)
-                    .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
-            var page = new CoursePage(course);
-            ctx.render("courses/show.jte", model("page", page));
-        });
-
-        app.get(NamedRoutes.coursesPath(), ctx -> {
-            var courses = CourseRepository.getEntities();
-
-            var term = ctx.queryParam("term");
-            if (term != null) {
-                courses = courses.stream()
-                        .filter(course -> course.getName().toLowerCase().contains(term.toLowerCase()))
-                        .collect(Collectors.toList());
-            }
-            var page = new CoursesPage(courses, term);
-            ctx.render("courses/index.jte", model("page", page));
-        });
-
+        app.get(NamedRoutes.coursesPath(), CoursesController::index);
+        app.get(NamedRoutes.buildCoursePath(), CoursesController::build);
+        app.get(NamedRoutes.coursePath("{id}"), CoursesController::show);
+        app.post(NamedRoutes.coursesPath(), CoursesController::create);
+        app.get(NamedRoutes.editCoursePath("{id}"), CoursesController::edit);
+        app.patch(NamedRoutes.coursePath("{id}"), CoursesController::update);
+        app.delete(NamedRoutes.coursePath("{id}"), CoursesController::destroy);
 
 
         app.get(NamedRoutes.usersPath(), UsersController::index);
