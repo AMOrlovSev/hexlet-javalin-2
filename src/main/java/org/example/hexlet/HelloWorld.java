@@ -3,21 +3,11 @@ package org.example.hexlet;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import io.javalin.Javalin;
-import io.javalin.http.NotFoundResponse;
 import io.javalin.rendering.template.JavalinJte;
-import io.javalin.validation.ValidationException;
 import org.example.hexlet.controller.CoursesController;
+import org.example.hexlet.controller.PostsController;
+import org.example.hexlet.controller.RootController;
 import org.example.hexlet.controller.UsersController;
-import org.example.hexlet.dto.courses.BuildCoursePage;
-import org.example.hexlet.dto.courses.CoursePage;
-import org.example.hexlet.dto.courses.CoursesPage;
-import org.example.hexlet.dto.users.BuildUserPage;
-import org.example.hexlet.dto.users.UserPage;
-import org.example.hexlet.dto.users.UsersPage;
-import org.example.hexlet.model.Course;
-import org.example.hexlet.model.User;
-import org.example.hexlet.repository.CourseRepository;
-import org.example.hexlet.repository.UserRepository;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,8 +15,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.stream.Collectors;
-
-import static io.javalin.rendering.template.TemplateUtil.model;
 
 public class HelloWorld {
 
@@ -73,8 +61,6 @@ public class HelloWorld {
         });
 
 
-
-
         app.get(NamedRoutes.coursesPath(), CoursesController::index);
         app.get(NamedRoutes.buildCoursePath(), CoursesController::build);
         app.get(NamedRoutes.coursePath("{id}"), CoursesController::show);
@@ -93,9 +79,15 @@ public class HelloWorld {
         app.delete(NamedRoutes.userPath("{id}"), UsersController::destroy);
 
 
-        app.get("/", ctx -> {
-            ctx.render("index.jte");
-        });
+        app.get(NamedRoutes.rootPath(), RootController::index);
+
+
+        app.get(NamedRoutes.buildPostPath(), PostsController::build);
+        app.post(NamedRoutes.postsPath(), PostsController::create);
+        app.get(NamedRoutes.postsPath(), PostsController::index);
+        app.get(NamedRoutes.postPath("{id}"), PostsController::show);
+        app.get(NamedRoutes.editPostPath("{id}"), PostsController::edit);
+        app.post(NamedRoutes.postPath("{id}"), PostsController::update);
 
         return app;
     }
