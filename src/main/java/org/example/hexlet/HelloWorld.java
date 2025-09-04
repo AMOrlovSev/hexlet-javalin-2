@@ -1,5 +1,6 @@
 package org.example.hexlet;
 
+import com.sun.tools.javac.Main;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import io.javalin.Javalin;
@@ -8,15 +9,25 @@ import org.example.hexlet.controller.CoursesController;
 import org.example.hexlet.controller.PostsController;
 import org.example.hexlet.controller.RootController;
 import org.example.hexlet.controller.UsersController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 
 public class HelloWorld {
+
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    private static final DateTimeFormatter formatter =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
 
     private static int getPort() {
         String port = System.getenv().getOrDefault("PORT", "7070");
@@ -58,6 +69,27 @@ public class HelloWorld {
 
         app.before(ctx -> {
             ctx.contentType("text/html; charset=utf-8");
+        });
+
+        app.before(ctx -> {
+            ctx.contentType("text/html; charset=utf-8");
+        });
+
+
+        // Middleware для всех запросов
+        app.before(ctx -> {
+            ctx.attribute("startTime", Instant.now());
+            String timestamp = LocalDateTime.now().format(formatter);
+            logger.info("[{}] → {} {} from {}", timestamp, ctx.method(), ctx.path(), ctx.ip());
+        });
+
+        app.after(ctx -> {
+            Instant start = (Instant) ctx.attribute("startTime");
+            long duration = Duration.between(start, Instant.now()).toMillis();
+            String timestamp = LocalDateTime.now().format(formatter);
+
+            logger.info("[{}] ← {} {} - Status: {} - {}ms",
+                    timestamp, ctx.method(), ctx.path(), ctx.status(), duration);
         });
 
 
