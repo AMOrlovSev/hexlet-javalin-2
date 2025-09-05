@@ -6,6 +6,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinJte;
 import org.example.hexlet.controller.*;
+import org.example.hexlet.util.NamedRoutes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 
 public class HelloWorld {
 
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    private static final Logger logger = LoggerFactory.getLogger(HelloWorld.class);
     private static final DateTimeFormatter formatter =
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
 
@@ -62,10 +63,6 @@ public class HelloWorld {
             config.bundledPlugins.enableDevLogging();
             config.fileRenderer(new JavalinJte());
             config.bundledPlugins.enableRouteOverview("/routes");
-        });
-
-        app.before(ctx -> {
-            ctx.contentType("text/html; charset=utf-8");
         });
 
         app.before(ctx -> {
@@ -119,8 +116,8 @@ public class HelloWorld {
         app.post(NamedRoutes.postPath("{id}"), PostsController::update);
 
         app.get(NamedRoutes.buildSessionPath(), SessionsController::build);
-        app.post(NamedRoutes.sessionsPath(), SessionsController::create);
-        app.delete(NamedRoutes.sessionsPath(), SessionsController::destroy);
+        app.post(NamedRoutes.loginPath(), SessionsController::create);
+        app.post(NamedRoutes.logoutPath(), SessionsController::destroy);
 
         return app;
     }

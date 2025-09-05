@@ -1,5 +1,5 @@
 @import org.example.hexlet.dto.users.BuildUserPage
-@import org.example.hexlet.NamedRoutes
+@import org.example.hexlet.util.NamedRoutes
 
 @param BuildUserPage page
 
@@ -19,7 +19,7 @@ content = @`
         </div>
     @endif
 
-    <form action="${NamedRoutes.usersPath()}" method="post">
+    <form action="${org.example.hexlet.util.NamedRoutes.usersPath()}" method="post">
         <div class="mb-3">
             <label class="form-label">Имя</label>
             <input type="text" class="form-control" name="name" value="${page.getName() != null ? page.getName() : ""}" required>
@@ -41,7 +41,7 @@ content = @`
         </div>
 
         <button type="submit" class="btn btn-primary">Создать</button>
-        <a href="${NamedRoutes.usersPath()}" class="btn btn-secondary">Отмена</a>
+        <a href="${org.example.hexlet.util.NamedRoutes.usersPath()}" class="btn btn-secondary">Отмена</a>
     </form>
 `
 )

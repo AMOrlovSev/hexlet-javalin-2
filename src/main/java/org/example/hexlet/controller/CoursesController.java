@@ -3,19 +3,13 @@ package org.example.hexlet.controller;
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
 import io.javalin.validation.ValidationException;
-import org.example.hexlet.NamedRoutes;
+import org.example.hexlet.util.NamedRoutes;
 import org.example.hexlet.dto.courses.BuildCoursePage;
 import org.example.hexlet.dto.courses.CoursePage;
 import org.example.hexlet.dto.courses.CoursesPage;
 import org.example.hexlet.dto.courses.EditCoursePage;
-import org.example.hexlet.dto.users.BuildUserPage;
-import org.example.hexlet.dto.users.EditUserPage;
-import org.example.hexlet.dto.users.UserPage;
-import org.example.hexlet.dto.users.UsersPage;
 import org.example.hexlet.model.Course;
-import org.example.hexlet.model.User;
 import org.example.hexlet.repository.CourseRepository;
-import org.example.hexlet.repository.UserRepository;
 
 import java.util.stream.Collectors;
 

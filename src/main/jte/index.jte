@@ -1,22 +1,19 @@
 @import org.example.hexlet.dto.MainPage
+@import org.example.hexlet.util.NamedRoutes
 @param MainPage page
 
 @template.layout.page(
 content = @`
-    <div class="mx-auto p-4 py-md-5">
-        <main>
-            <h1>Здорова!</h1>
-            @if(!page.isVisited())
-                Это сообщение показывается только один раз. Если вы хотите увидеть его снова, сотрите куки
-            @endif
-            @if(page.getCurrentUser() != null)
-                Добро пожаловать, ${page.getCurrentUser()}.
-                Чтобы разлогиниться, удалите куку JSESSIONID из браузера
-            @endif
-        </main>
-    </div>
-`,
-footer = @`
-    <p>Thanks for visiting, come again soon!</p>
+    @if (page.getCurrentUser() != null)
+        <h1 class="mb-3"> Добро пожаловать, ${page.getCurrentUser()}</h1>
+        <form action="${NamedRoutes.logoutPath()}" method="post">
+            <input type="submit" value="Выйти">
+        </form>
+    @else
+        <h1 class="mb-3"> Добро пожаловать, гость</h1>
+        <form action="${NamedRoutes.buildSessionPath()}" method="get">
+            <input type="submit" value="Войти">
+        </form>
+    @endif
 `
 )

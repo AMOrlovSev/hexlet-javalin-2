@@ -6,9 +6,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.example.hexlet.model.User;
+import org.example.hexlet.util.Generator;
 
 public class UserRepository {
-    private static List<User> entities = new ArrayList<User>();
+    private static List<User> entities = Generator.getUsers();
 
     public static void save(User user) {
         if (user.getId() == null) {
@@ -34,6 +35,17 @@ public class UserRepository {
                 .filter(entity -> entity.getId() == id)
                 .findAny();
         return maybeUser;
+    }
+
+    public static Optional<User> findByName(String name) {
+        return entities.stream()
+                .filter(entity -> entity.getName().equals(name))
+                .findAny();
+    }
+
+    public static boolean existsByName(String name) {
+        return entities.stream()
+                .anyMatch(value -> value.getName().equals(name));
     }
 
     public static void delete(Long id) {

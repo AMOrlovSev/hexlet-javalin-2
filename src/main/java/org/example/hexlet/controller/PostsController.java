@@ -7,7 +7,7 @@ import org.example.hexlet.model.Post;
 import org.example.hexlet.repository.PostRepository;
 import org.example.hexlet.dto.posts.BuildPostPage;
 import org.example.hexlet.dto.posts.EditPostPage;
-import org.example.hexlet.NamedRoutes;
+import org.example.hexlet.util.NamedRoutes;
 
 import io.javalin.http.Context;
 import io.javalin.validation.ValidationException;

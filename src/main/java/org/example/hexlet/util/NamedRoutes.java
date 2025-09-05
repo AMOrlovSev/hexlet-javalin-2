@@ -1,4 +1,4 @@
-package org.example.hexlet;
+package org.example.hexlet.util;
 
 public class NamedRoutes {
     public static String coursesPath() {
@@ -85,8 +85,13 @@ public class NamedRoutes {
 
 
 
-    public static String sessionsPath() {
+
+    public static String loginPath() {
         return "/sessions";
+    }
+
+    public static String logoutPath() {
+        return "/sessions/delete";
     }
 
     public static String buildSessionPath() {

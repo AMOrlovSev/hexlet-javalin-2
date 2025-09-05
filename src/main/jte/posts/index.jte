@@ -1,5 +1,5 @@
 @import org.example.hexlet.dto.posts.PostsPage
-@import org.example.hexlet.NamedRoutes
+@import org.example.hexlet.util.NamedRoutes
 @param PostsPage page
 
 @template.layout.page(

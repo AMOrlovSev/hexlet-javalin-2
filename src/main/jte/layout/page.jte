@@ -1,5 +1,5 @@
 @import gg.jte.Content
-@import org.example.hexlet.NamedRoutes
+@import org.example.hexlet.util.NamedRoutes
 @param Content content
 @param Content footer = null
 

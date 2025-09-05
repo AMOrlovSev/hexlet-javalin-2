@@ -1,5 +1,5 @@
 @import org.example.hexlet.dto.users.EditUserPage
-@import org.example.hexlet.NamedRoutes
+@import org.example.hexlet.util.NamedRoutes
 
 @param EditUserPage page
 
