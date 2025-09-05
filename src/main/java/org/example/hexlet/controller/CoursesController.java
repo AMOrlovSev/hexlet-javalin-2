@@ -25,6 +25,8 @@ public class CoursesController {
                     .collect(Collectors.toList());
         }
         var page = new CoursesPage(courses, term);
+        String flash = ctx.consumeSessionAttribute("flash");
+        page.setFlash(flash);
         ctx.render("courses/index.jte", model("page", page));
     }
 
@@ -51,6 +53,7 @@ public class CoursesController {
                     .get();
             var course = new Course(name, description);
             CourseRepository.save(course);
+            ctx.sessionAttribute("flash", "Course has been created!");
             ctx.redirect(NamedRoutes.coursesPath());
         } catch (ValidationException e) {
             var name = ctx.formParam("name").trim();

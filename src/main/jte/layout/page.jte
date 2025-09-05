@@ -1,7 +1,9 @@
 @import gg.jte.Content
+@import org.example.hexlet.dto.BasePage
 @import org.example.hexlet.util.NamedRoutes
 @param Content content
 @param Content footer = null
+@param BasePage page = null
 
 <!doctype html>
 <html lang="en">
@@ -17,6 +19,9 @@
     <a href="${NamedRoutes.postsPath()}">Посты</a>
     <a href="${NamedRoutes.buildSessionPath()}">Сессия</a>
 </p>
+@if(page != null && page.getFlash() != null)
+    <p>${page.getFlash()}</p>
+@endif
 ${content}
 @if (footer != null)
     <div class="footer">
