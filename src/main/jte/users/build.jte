@@ -4,8 +4,14 @@
 @param BuildUserPage page
 
 @template.layout.page(
+page = page,
 content = @`
     <h1>Создание пользователя</h1>
+    <div class="alert alert-danger" role="alert">
+        @if(page.getFlash() != null)
+            <p>${page.getFlash()}</p>
+        @endif
+    </div>
 
     @if(page.getErrors() != null)
         <div class="alert alert-danger">

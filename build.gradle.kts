@@ -30,6 +30,7 @@ dependencies {
     compileOnly("org.projectlombok:lombok:1.18.30")
     annotationProcessor("org.projectlombok:lombok:1.18.30")
     implementation("com.google.guava:guava:32.1.3-jre")
+    implementation("org.webjars:bootstrap:5.3.0")
 }
 
 tasks.test {

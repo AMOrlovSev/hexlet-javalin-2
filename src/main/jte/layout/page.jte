@@ -13,15 +13,15 @@
     <title>Hexlet Javalin Example</title>
 </head>
 <body>
+@if(page != null && page.getFlash() != null)
+    <p>${page.getFlash()}</p>
+@endif
 <p>
     <a href="${NamedRoutes.coursesPath()}">Курсы</a>
     <a href="${NamedRoutes.usersPath()}">Пользователи</a>
     <a href="${NamedRoutes.postsPath()}">Посты</a>
     <a href="${NamedRoutes.buildSessionPath()}">Сессия</a>
 </p>
-@if(page != null && page.getFlash() != null)
-    <p>${page.getFlash()}</p>
-@endif
 ${content}
 @if (footer != null)
     <div class="footer">

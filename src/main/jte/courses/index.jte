@@ -6,9 +6,6 @@
 page = page,
 content = @`
     <h1>Курсы</h1>
-    @if(page.getFlash() != null)
-        <p>${page.getFlash()}</p>
-    @endif
     <form action="${org.example.hexlet.util.NamedRoutes.coursesPath()}" method="get">
         <input type="search" name="term" value="${page.getTerm()}" />
         <input type="submit" value="Search" />

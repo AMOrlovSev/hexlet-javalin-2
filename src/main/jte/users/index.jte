@@ -3,9 +3,15 @@
 @param UsersPage page
 
 @template.layout.page(
+page = page,
 content = @`
     <div class="mx-auto p-4 py-md-5">
         <main>
+            <div class="text-success">
+                @if(page.getFlash() != null)
+                    <p>${page.getFlash()}</p>
+                @endif
+            </div>
             <h1>Пользователи</h1>
             <form action="${org.example.hexlet.util.NamedRoutes.usersPath()}" method="get">
                 <input type="search" name="term" value="${page.getTerm()}" />

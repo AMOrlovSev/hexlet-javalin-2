@@ -25,11 +25,15 @@ public class UsersController {
                     .collect(Collectors.toList());
         }
         var page = new UsersPage(users, term);
+        String flash = ctx.consumeSessionAttribute("flash");
+        page.setFlash(flash);
         ctx.render("users/index.jte", model("page", page));
     }
 
     public static void build(Context ctx) {
         var page = new BuildUserPage();
+        String flash = ctx.consumeSessionAttribute("flash");
+        page.setFlash(flash);
         ctx.render("users/build.jte", model("page", page));
     }
 
@@ -52,9 +56,11 @@ public class UsersController {
                     .get();
             var user = new User(name, email, password);
             UserRepository.save(user);
+            ctx.sessionAttribute("flash", name + " успешно добавлен");
             ctx.redirect(NamedRoutes.usersPath());
         } catch (ValidationException e) {
             var page = new BuildUserPage(name, email, e.getErrors());
+            ctx.sessionAttribute("flash", name + " не добавлен");
             ctx.render("users/build.jte", model("page", page));
         }
     }
