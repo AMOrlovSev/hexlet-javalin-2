@@ -15,6 +15,7 @@
     <a href="${NamedRoutes.coursesPath()}">Курсы</a>
     <a href="${NamedRoutes.usersPath()}">Пользователи</a>
     <a href="${NamedRoutes.postsPath()}">Посты</a>
+    <a href="${NamedRoutes.buildSessionPath()}">Сессия</a>
 </p>
 ${content}
 @if (footer != null)

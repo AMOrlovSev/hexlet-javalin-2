@@ -5,10 +5,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinJte;
-import org.example.hexlet.controller.CoursesController;
-import org.example.hexlet.controller.PostsController;
-import org.example.hexlet.controller.RootController;
-import org.example.hexlet.controller.UsersController;
+import org.example.hexlet.controller.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -120,6 +117,10 @@ public class HelloWorld {
         app.get(NamedRoutes.postPath("{id}"), PostsController::show);
         app.get(NamedRoutes.editPostPath("{id}"), PostsController::edit);
         app.post(NamedRoutes.postPath("{id}"), PostsController::update);
+
+        app.get(NamedRoutes.buildSessionPath(), SessionsController::build);
+        app.post(NamedRoutes.sessionsPath(), SessionsController::create);
+        app.delete(NamedRoutes.sessionsPath(), SessionsController::destroy);
 
         return app;
     }
