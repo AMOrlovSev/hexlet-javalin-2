@@ -6,6 +6,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinJte;
 import org.example.hexlet.controller.*;
+import org.example.hexlet.repository.BaseRepository;
 import org.example.hexlet.util.NamedRoutes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,13 +47,13 @@ public class HelloWorld {
     }
 
     public static Javalin getApp() throws IOException, SQLException {
-        // System.setProperty("h2.traceLevel", "TRACE_LEVEL_SYSTEM_OUT=4");
-
         var hikariConfig = new HikariConfig();
         hikariConfig.setJdbcUrl("jdbc:h2:mem:project;DB_CLOSE_DELAY=-1;");
 
         var dataSource = new HikariDataSource(hikariConfig);
+
         var sql = readResourceFile("schema.sql");
+        BaseRepository.dataSource = dataSource;
 
         try (var connection = dataSource.getConnection();
              var statement = connection.createStatement()) {
@@ -118,6 +119,11 @@ public class HelloWorld {
         app.get(NamedRoutes.buildSessionPath(), SessionsController::build);
         app.post(NamedRoutes.loginPath(), SessionsController::create);
         app.post(NamedRoutes.logoutPath(), SessionsController::destroy);
+
+        app.get(NamedRoutes.carsPath(), CarsController::index);
+        app.get(NamedRoutes.buildCarPath(), CarsController::build);
+        app.get(NamedRoutes.carPath("{id}"), CarsController::show);
+        app.post(NamedRoutes.carsPath(), CarsController::create);
 
         return app;
     }

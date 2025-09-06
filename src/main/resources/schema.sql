@@ -1,13 +1,15 @@
 DROP TABLE IF EXISTS courses;
 
 CREATE TABLE courses (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    description TEXT,
-    created_at TIMESTAMP
+    description TEXT
 );
 
-INSERT INTO courses (name, description) VALUES
-('name1', 'description1'),
-('name2', 'description2'),
-('name3', 'description3');
+DROP TABLE IF EXISTS cars;
+
+CREATE TABLE cars (
+    id SERIAL PRIMARY KEY,
+    make VARCHAR(255) NOT NULL,
+    model VARCHAR(255) NOT NULL
+);

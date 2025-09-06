@@ -31,6 +31,8 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.30")
     implementation("com.google.guava:guava:32.1.3-jre")
     implementation("org.webjars:bootstrap:5.3.0")
+    implementation("com.h2database:h2:2.2.220")
+    implementation("com.zaxxer:HikariCP:5.0.1")
 }
 
 tasks.test {
