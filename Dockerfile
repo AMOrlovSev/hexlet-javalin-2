@@ -8,9 +8,6 @@ COPY build.gradle.kts .
 COPY settings.gradle.kts .
 COPY gradlew .
 COPY Makefile .
-
-RUN ./gradlew --no-daemon dependencies
-
 COPY src src
 
 RUN ["./gradlew", "clean", "build"]
