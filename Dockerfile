@@ -4,6 +4,9 @@ WORKDIR /app
 
 COPY . .
 
+# Даем права на выполнение для gradlew
+RUN chmod +x gradlew
+
 RUN ./gradlew clean build
 
 FROM openjdk:21-jdk-slim
