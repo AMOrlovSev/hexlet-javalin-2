@@ -33,6 +33,12 @@ public class HelloWorld {
         return Integer.valueOf(port);
     }
 
+    private static String getDatabaseUrl() {
+        // Получаем url базы данных из переменной окружения DATABASE_URL
+        // Если она не установлена, используем базу в памяти
+        return System.getenv().getOrDefault("DATABASE_URL", "jdbc:h2:mem:project");
+    }
+
     private static String readResourceFile(String fileName) throws IOException {
         var inputStream = HelloWorld.class.getClassLoader().getResourceAsStream(fileName);
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
@@ -48,7 +54,8 @@ public class HelloWorld {
 
     public static Javalin getApp() throws IOException, SQLException {
         var hikariConfig = new HikariConfig();
-        hikariConfig.setJdbcUrl("jdbc:h2:mem:project;DB_CLOSE_DELAY=-1;");
+        hikariConfig.setJdbcUrl(getDatabaseUrl());
+        //hikariConfig.setJdbcUrl("jdbc:h2:mem:project;DB_CLOSE_DELAY=-1;");
 
         var dataSource = new HikariDataSource(hikariConfig);
 
