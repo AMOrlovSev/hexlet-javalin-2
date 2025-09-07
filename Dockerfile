@@ -1,4 +1,4 @@
-FROM gradle:8.12.1-jdk21 as builder
+FROM gradle:8.12.1-jdk21
 
 WORKDIR /app
 
@@ -7,15 +7,6 @@ COPY . .
 # Даем права на выполнение для gradlew
 RUN chmod +x gradlew
 
-RUN ./gradlew clean build
-
-FROM openjdk:21-jdk-slim
-
-WORKDIR /app
-
-# Копируем только собранный JAR файл
-COPY --from=builder /app/build/libs/*.jar app.jar
-
 EXPOSE 7070
 
-CMD ["java", "-jar", "app.jar"]
+CMD ["./gradlew", "run"]
