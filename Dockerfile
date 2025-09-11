@@ -11,7 +11,6 @@ RUN chmod +x gradlew
 RUN ./gradlew --no-daemon dependencies
 
 COPY src src
-COPY config config
 
 RUN ./gradlew --no-daemon shadowJar
 
