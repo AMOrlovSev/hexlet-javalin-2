@@ -1,10 +1,21 @@
-FROM gradle:8.12.1-jdk21
+FROM eclipse-temurin:21-jdk
 
 WORKDIR /app
 
-COPY . .
+COPY gradle gradle
+COPY build.gradle.kts .
+COPY settings.gradle.kts .
+COPY gradlew .
 
 RUN chmod +x gradlew
-RUN ./gradlew clean build
+RUN ./gradlew --no-daemon dependencies
 
-CMD ["./gradlew", "run"]
+COPY src src
+COPY config config
+
+RUN ./gradlew --no-daemon shadowJar
+
+ENV JAVA_OPTS="-Xmx512M -Xms512M"
+EXPOSE 7070
+
+CMD ["java", "-jar", "build/libs/hexlet-javalin-2-1.0-SNAPSHOT-all.jar"]
