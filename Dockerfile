@@ -4,9 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-# Даем права на выполнение для gradlew
 RUN chmod +x gradlew
-
-EXPOSE 7070
+RUN ./gradlew clean build
 
 CMD ["./gradlew", "run"]
